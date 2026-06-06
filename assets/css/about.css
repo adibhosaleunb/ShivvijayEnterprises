@@ -1,0 +1,353 @@
+
+/*--------------------------------------------------------------
+# AboutPage
+--------------------------------------------------------------*/
+.aboutpage
+{
+  padding-top: 140px;
+}
+.aboutpage .content h3 {
+  font-weight: 600;
+  font-size: 26px;
+  color: #0b2341
+}
+
+
+.aboutpage .content h4 {
+  font-weight: 600;
+  font-size: 26px;
+  color: #0b2341;
+}
+
+.aboutpage .content h5 {
+  font-weight: 600;
+  font-size: 20px;
+  color: #0b2341;
+}
+
+.aboutpage .content h3 {
+  font-weight: 600;
+  font-size: 26px;
+}
+.aboutpage .content ul {
+  list-style: none;
+  padding: 0;
+}
+
+.aboutpage .content ul li {
+  padding-left: 28px;
+  position: relative;
+}
+
+.aboutpage .content ul li + li {
+  margin-top: 10px;
+}
+
+.aboutpage .content ul i {
+  position: absolute;
+  left: 0;
+  top: 2px;
+  font-size: 20px;
+  color: #ed502e;
+  line-height: 1;
+}
+
+.aboutpage .content p:last-child {
+  margin-bottom: 0;
+}
+
+.aboutpage .content .btn-learn-more {
+  font-family: "Raleway", sans-serif;
+  font-weight: 600;
+  font-size: 14px;
+  letter-spacing: 1px;
+  display: inline-block;
+  padding: 12px 32px;
+  border-radius: 5px;
+  transition: 0.3s;
+  line-height: 1;
+  color: #ed502e;
+  -webkit-animation-delay: 0.8s;
+  animation-delay: 0.8s;
+  margin-top: 6px;
+  border: 2px solid #ed502e;
+}
+
+.aboutpage .content .btn-learn-more:hover {
+  background: #ed502e;
+  color: #fff;
+  text-decoration: none;
+}
+
+
+
+/*--------------------------------------------------------------
+# certifications
+--------------------------------------------------------------*/
+.certifications .icon-box {
+  text-align: center;
+  background: #fefefe;
+  box-shadow: 0px 5px 90px 0px rgba(110, 123, 131, 0.1);
+  padding: clamp(32px, 7vw, 80px) 20px;
+  transition: all ease-in-out 0.3s;
+}
+
+.certifications .icon-box .icon {
+  margin: 0 auto;
+  width: 64px;
+  height: 64px;
+  background: #ed502e;
+  border-radius: 5px;
+  transition: all .3s ease-out 0s;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 20px;
+  transform-style: preserve-3d;
+  position: relative;
+  z-index: 2;
+}
+
+.certifications .icon-box .icon i {
+  color: #fff;
+  font-size: 28px;
+}
+
+.certifications .icon-box .icon::before {
+  position: absolute;
+  content: '';
+  left: -8px;
+  top: -8px;
+  height: 100%;
+  width: 100%;
+  background: #f9c6bb;
+  border-radius: 5px;
+  transition: all .3s ease-out 0s;
+  transform: translateZ(-1px);
+  z-index: 1;
+}
+
+.certifications img
+{
+  height: auto;
+  max-width: 100%;
+}
+.certifications .icon-box h4 {
+  font-weight: 700;
+  margin-bottom: 15px;
+  font-size: 24px;
+}
+
+.certifications .icon-box h4 a {
+  color: #0b2341;
+}
+
+.certifications .icon-box p {
+  line-height: 24px;
+  font-size: 14px;
+  margin-bottom: 0;
+}
+
+.certifications .icon-box:hover {
+  background: #ed502e;
+  border-color: #ed502e;
+}
+
+.certifications .icon-box:hover .icon {
+  background: #fff;
+}
+
+.certifications .icon-box:hover .icon i {
+  color: #ed502e;
+}
+
+.certifications .icon-box:hover .icon::before {
+  background: #f1775d;
+}
+
+.certifications .icon-box:hover h4 a, .services .icon-box:hover p {
+  color: #fff;
+}
+
+
+/*--------------------------------------------------------------
+# Support
+--------------------------------------------------------------*/
+.team-about .icon-box h4 {
+  font-size: 24px;
+  font-weight: 700;
+  margin: 5px 0 10px 60px;
+  color: #343a40;
+}
+
+.team-about h3
+{
+  color:#173b6c;
+  font-size: 30px;
+  font-weight: 600;
+}
+
+.team-about .icon-box i {
+  font-size: 48px;
+  float: left;
+  color: #ed502e;
+}
+
+.team-about .icon-box p {
+  font-size: 17px;
+  color: #272829;
+  margin-left: 60px;
+}
+
+.team-about .image {
+  background-position: center center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  min-height: 400px;
+}
+
+@media (max-width: 768px) {
+.team-about .icon-box p {
+  font-size: 15px;
+  color: #272829;
+  margin-left: 0;
+  margin-right: 15px;
+}
+}
+
+.team-about .btn-learn-more {
+  font-family: "Raleway", sans-serif;
+  font-weight: 600;
+  font-size: 14px;
+  letter-spacing: 1px;
+  display: inline-block;
+  padding: 12px 32px;
+  border-radius: 5px;
+  transition: 0.3s;
+  line-height: 1;
+  color: #ed502e;
+  -webkit-animation-delay: 0.8s;
+  animation-delay: 0.8s;
+  margin-top: 6px;
+  border: 2px solid #ed502e;
+}
+
+.team-about .btn-learn-more:hover {
+  background: #ed502e;
+  color: #fff;
+  text-decoration: none;
+}
+
+@media (min-width: 992px){
+.team-about .data  {
+    flex: 0 0 auto;
+    width:70%; 
+}
+
+.team-about .image{
+  flex: 0 0 auto;
+    width:30%;
+}
+}
+
+/*-----------------------------------------------------------------
+team - ceo letter
+-------------------------------------------------------------------*/
+
+.letter-ceo{
+    padding-top: 20px;
+}
+
+.letter-ceo .icon-box {
+    text-align: center;
+    padding: 20px 20px;
+    transition: all ease-in-out 0.3s;
+    background: #fff;
+  }
+
+
+  .covid-content img{
+    width: min(200px, 100%);
+  }
+
+
+
+  @media (min-width:992px) {
+      
+  .letter-ceo .col-lg-8 {
+    flex: 0 0 auto;
+    width: 80%;
+ 
+  }
+
+  .letter-ceo .col-lg-4 {
+    flex: 0 0 auto;
+    width: 20%
+  }
+
+}
+ 
+  .letter-ceo h2
+  {
+    color:#173b6c;
+    font-weight: 600;
+  }
+
+
+  @media (max-width: 768px) {
+    .aboutpage {
+      padding-top: 120px;
+    }
+
+    .aboutpage .content h3,
+    .aboutpage .content h4 {
+      font-size: 22px;
+      line-height: 1.3;
+    }
+
+    .team-about .image {
+      min-height: 260px;
+    }
+
+    .team-about .icon-box h4 {
+      margin-left: 0;
+      font-size: 21px;
+    }
+
+    .covid-content img{
+      width: min(200px, 100%);
+      display: block;
+      margin: 0 auto 16px;
+    }
+    }
+
+    .letter-ceo .btn-learn-more {
+      font-family: "Raleway", sans-serif;
+      font-weight: 600;
+      font-size: 14px;
+      letter-spacing: 1px;
+      display: inline-block;
+      padding: 12px 32px;
+      border-radius: 5px;
+      transition: 0.3s;
+      line-height: 1;
+      color: #ed502e;
+      -webkit-animation-delay: 0.8s;
+      animation-delay: 0.8s;
+      margin-top: 6px;
+      border: 2px solid #ed502e;
+      width: 150px;
+    }
+    
+    .letter-ceo .btn-learn-more:hover {
+      background: #ed502e;
+      color: #fff;
+      text-decoration: none;
+    }
+
+    @media (max-width: 480px) {
+      .letter-ceo .btn-learn-more {
+        width: 100%;
+        text-align: center;
+      }
+    }

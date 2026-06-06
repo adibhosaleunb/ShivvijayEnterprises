@@ -1,0 +1,138 @@
+/*--------------------------------------------------------------
+# covid-letter
+--------------------------------------------------------------*/
+.covid-letter{
+    padding-top: 140px;
+}
+
+.covid-letter .icon-box {
+    text-align: center;
+    padding: 20px 20px;
+    transition: all ease-in-out 0.3s;
+    background: #fff;
+    z-index: 500;
+    min-height: 300px;
+  }
+
+  @media (min-width:992px) {
+      
+  .covid-letter .col-lg-8 {
+    flex: 0 0 auto;
+    width: 50%;
+ 
+  }
+
+  .covid-letter .col-lg-4 {
+    flex: 0 0 auto;
+    width: 50%
+  }
+
+}
+  .covid-letter .icon-box .icon {
+    margin: 0 auto;
+    width: 64px;
+    height: 64px;
+    border-radius: 50px;
+    border: 1px solid #173b6c;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 20px;
+    transition: ease-in-out 0.3s;
+    color: #173b6c;
+  }
+  
+  .covid-letter .icon-box .icon i {
+    font-size: 28px;
+  }
+  
+  .covid-letter .icon-box h4 {
+    font-weight: 700;
+    margin-bottom: 15px;
+    font-size: 24px;
+    color:#173b6c;
+  }
+  
+  .covid-letter .icon-box h4 a {
+    color: #36343a;
+    transition: ease-in-out 0.3s;
+  }
+  
+  .covid-letter .icon-box p {
+    line-height: 24px;
+    font-size: 14px;
+    margin-bottom: 0;
+    color:#36343a;
+  }
+  
+  .covid-letter .icon-box:hover {
+    border-color: #fff;
+    box-shadow: 0px 0 25px 0 rgba(0, 0, 0, 0.1);
+  }
+  
+  .covid-letter .icon-box:hover h4 a {
+    color: #173b6c;
+  }
+  
+  .covid-letter .icon-box:hover .icon {
+    color: #fff;
+    background: #173b6c;
+  }
+  
+
+  .covid-content h2
+  {
+    color:#173b6c;
+    font-weight: 600;
+  }
+
+
+
+  /*--------------------------------------------------------------
+# collector popup
+--------------------------------------------------------------*/
+
+#collector-pdf
+{
+    top: 5%;
+    left: 5%;
+    width: 90%;
+    max-height: 90vh;
+    overflow: auto;
+    position: fixed;
+    z-index: 1001;
+    background: #040b14;
+    border-top-left-radius: 25px;
+    border-top-right-radius: 25px;
+    border-bottom-left-radius: 25px;
+    border-bottom-right-radius: 25px;
+    display: none;
+}
+
+@media (max-width: 768px) {
+  .covid-letter {
+    padding-top: 120px;
+  }
+
+  .covid-letter .icon-box {
+    min-height: 0;
+    margin-bottom: 18px;
+  }
+
+  .covid-letter .icon-box h4 {
+    font-size: 21px;
+    line-height: 1.3;
+  }
+
+  .covid-content h2 {
+    font-size: 24px;
+    line-height: 1.3;
+  }
+
+  #collector-pdf {
+    top: 2%;
+    left: 2%;
+    width: 96%;
+    max-height: 96vh;
+  }
+}
