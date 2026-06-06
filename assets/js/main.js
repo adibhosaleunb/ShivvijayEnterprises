@@ -456,15 +456,21 @@ function showFilter(portfolioFilters, portfolioIsotope) {
 }
 
 
+let queryPopupHandled = false;
+
 $(document).ready(function () {
-  if($(window.innerWidth> 768)) {
+  if (window.innerWidth > 768 && $("#popupMain").length) {
     setTimeout(function () {
-      $("#popupMain").css("display", "block");
+      if (!queryPopupHandled) {
+        queryPopupHandled = true;
+        $("#popupMain").css("display", "block");
+      }
     }, 6000);
-  } 
+  }
 });
 
 $(".contactp-close").click(function () {
+  queryPopupHandled = true;
   $("#popupMain").css("display", "none");
 });
 
