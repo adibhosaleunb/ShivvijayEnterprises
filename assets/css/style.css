@@ -15,6 +15,7 @@
   --brand-cyan: #01b1d7;
   --soft-surface: #f6f9fd;
   --card-shadow: 0 18px 45px rgba(11, 35, 65, 0.1);
+  --glow-shadow: 0 18px 45px rgba(237, 80, 46, 0.18);
   --motion-fast: 180ms ease;
   --motion-med: 320ms ease;
 }
@@ -66,6 +67,46 @@ select:focus-visible,
   outline-offset: 3px;
 }
 
+.scroll-progress {
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 2000;
+  width: 0;
+  height: 4px;
+  pointer-events: none;
+  background: linear-gradient(90deg, var(--brand-orange), #ffbd5a, var(--brand-cyan));
+  box-shadow: 0 0 18px rgba(237, 80, 46, 0.45);
+  transition: width 120ms linear;
+}
+
+@keyframes softFloat {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-8px);
+  }
+}
+
+@keyframes kenBurns {
+  0% {
+    transform: scale(1.02);
+  }
+  100% {
+    transform: scale(1.1);
+  }
+}
+
+@keyframes shimmerSweep {
+  0% {
+    transform: translateX(-140%) skewX(-18deg);
+  }
+  100% {
+    transform: translateX(160%) skewX(-18deg);
+  }
+}
+
 a {
   color: #ed502e;
   text-decoration: none;
@@ -95,6 +136,7 @@ h1, h2, h3, h4, h5, h6 {
   height: 40px;
   border-radius: 4px;
   transition: all 0.4s;
+  overflow: hidden;
 }
 
 .back-to-top i {
@@ -111,6 +153,7 @@ h1, h2, h3, h4, h5, h6 {
 .back-to-top.active {
   visibility: visible;
   opacity: 1;
+  animation: softFloat 3s ease-in-out infinite;
 }
 
 /*--------------------------------------------------------------
@@ -333,6 +376,25 @@ h1, h2, h3, h4, h5, h6 {
   white-space: nowrap;
   text-transform: uppercase;
   transition: 0.3s;
+  position: relative;
+}
+
+.navbar > ul > li > a::after {
+  content: "";
+  position: absolute;
+  left: 30px;
+  right: 0;
+  bottom: 2px;
+  height: 2px;
+  background: linear-gradient(90deg, var(--brand-orange), var(--brand-cyan));
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform var(--motion-med);
+}
+
+.navbar > ul > li > a:hover::after,
+.navbar > ul > li > a.active::after {
+  transform: scaleX(1);
 }
 
 .navbar a i {
@@ -597,6 +659,10 @@ body.nav-open {
   transform: scale(1.02);
 }
 
+#hero .carousel-item.active {
+  animation: kenBurns 7s ease-out both;
+}
+
 #hero .carousel-item::before {
   content: '';
   background: linear-gradient(90deg, rgba(4, 12, 21, 0.72), rgba(4, 12, 21, 0.45) 52%, rgba(4, 12, 21, 0.28));
@@ -855,8 +921,10 @@ section {
   width: 120px;
   height: 1px;
   display: inline-block;
-  background: #f38b74;
+  background: linear-gradient(90deg, #f38b74, var(--brand-cyan));
   margin: 4px 10px;
+  transform-origin: left;
+  animation: titleLineGrow 900ms ease both;
 }
 
 .section-title p {
@@ -869,6 +937,17 @@ section {
   color: #0f2f57;
   line-height: 1.16;
   text-wrap: balance;
+}
+
+@keyframes titleLineGrow {
+  from {
+    opacity: 0;
+    transform: scaleX(0);
+  }
+  to {
+    opacity: 1;
+    transform: scaleX(1);
+  }
 }
 
 
@@ -926,6 +1005,32 @@ section {
   animation-delay: 0.8s;
   margin-top: 6px;
   border: 2px solid #ed502e;
+  overflow: hidden;
+  position: relative;
+}
+
+.about .content .btn-learn-more::before,
+.cta .cta-btn::before,
+#footer .btn-learn-more::before,
+.contact .php-email-form button[type="submit"]::before {
+  content: "";
+  position: absolute;
+  top: -30%;
+  bottom: -30%;
+  left: 0;
+  width: 42px;
+  background: rgba(255, 255, 255, 0.38);
+  filter: blur(2px);
+  opacity: 0;
+  transform: translateX(-140%) skewX(-18deg);
+}
+
+.about .content .btn-learn-more:hover::before,
+.cta .cta-btn:hover::before,
+#footer .btn-learn-more:hover::before,
+.contact .php-email-form button[type="submit"]:hover::before {
+  opacity: 1;
+  animation: shimmerSweep 750ms ease;
 }
 
 .about .content .btn-learn-more:hover {
@@ -988,11 +1093,35 @@ section {
   width: 100%;
   border-radius: 14px;
   transition: transform var(--motion-med), box-shadow var(--motion-med);
+  overflow: hidden;
+  position: relative;
+}
+
+.counts .count-box::after,
+.support .icon-box::after,
+.team-about .icon-box::after,
+.services .icon-box::after,
+.testimonials .testimonial-item::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background: radial-gradient(circle at var(--shine-x, 20%) var(--shine-y, 0%), rgba(237, 80, 46, 0.16), transparent 32%);
+  opacity: 0;
+  transition: opacity var(--motion-med);
 }
 
 .counts .count-box:hover {
-  box-shadow: var(--card-shadow);
+  box-shadow: var(--glow-shadow);
   transform: translateY(-6px);
+}
+
+.counts .count-box:hover::after,
+.support .icon-box:hover::after,
+.team-about .icon-box:hover::after,
+.services .icon-box:hover::after,
+.testimonials .testimonial-item:hover::after {
+  opacity: 1;
 }
 
 .counts .count-box i {
@@ -1303,12 +1432,14 @@ section {
   border-radius: 14px;
   padding: 18px;
   transition: transform var(--motion-med), box-shadow var(--motion-med), background-color var(--motion-med);
+  overflow: hidden;
+  position: relative;
 }
 
 .support .icon-box:hover,
 .team-about .icon-box:hover {
   background: #fff;
-  box-shadow: var(--card-shadow);
+  box-shadow: var(--glow-shadow);
   transform: translateY(-5px);
 }
 
@@ -1391,10 +1522,12 @@ section {
   border-radius: 6px;
   background: #fff;
   transition: transform var(--motion-med), box-shadow var(--motion-med);
+  overflow: hidden;
+  position: relative;
 }
 
 .services .icon-box:hover {
-  box-shadow: var(--card-shadow);
+  box-shadow: var(--glow-shadow);
   transform: translateY(-5px);
 }
 
@@ -1555,10 +1688,11 @@ section {
   background: #fff;
   border-radius: 18px;
   transition: transform var(--motion-med), box-shadow var(--motion-med);
+  overflow: hidden;
 }
 
 .testimonials .testimonial-item:hover {
-  box-shadow: var(--card-shadow);
+  box-shadow: var(--glow-shadow);
   transform: translateY(-5px);
 }
 
@@ -1655,6 +1789,8 @@ section {
   margin-top: 10px;
   border: 2px solid #ed502e;
   color: #fff;
+  overflow: hidden;
+  position: relative;
 }
 
 .cta .cta-btn:hover {
@@ -1875,6 +2011,8 @@ section {
   transition: 0.4s;
   border-radius: 50px;
   margin-bottom: 20px;
+  overflow: hidden;
+  position: relative;
 }
 
 .contact .php-email-form button[type="submit"]:hover {
@@ -2109,6 +2247,8 @@ section {
   margin-top: 6px;
   border: 2px solid #ed502e;
   background-color:#ed502e ;
+  overflow: hidden;
+  position: relative;
 }
 
 #footer  .btn-learn-more:hover {
