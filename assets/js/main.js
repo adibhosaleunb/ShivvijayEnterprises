@@ -1,5 +1,8 @@
 const select = (el, all = false) => {
   el = el.trim()
+  if (!el) {
+    return all ? [] : null
+  }
   if (all) {
     return [...document.querySelectorAll(el)]
   } else {
@@ -27,7 +30,7 @@ function refreshFilter(){
     });
 
     let portfolioFilters = select('#portfolio-flters li', true);
-  
+
     on('click', '#portfolio-flters li', function(e) {
       e.preventDefault();
       portfolioFilters.forEach(function(el) {
@@ -42,14 +45,14 @@ function refreshFilter(){
         AOS.refresh()
       });
     }, true);
-    
+
     showFilter(portfolioFilters, portfolioIsotope);
   }
 }
 
 
 function refreshFilterContent(){
-  
+
     let portfolioContainer = select('.description-container');
     if (portfolioContainer) {
       let portfolioIsotope = new Isotope(portfolioContainer, {
@@ -59,7 +62,7 @@ function refreshFilterContent(){
       });
 
       let portfolioFilters = select('#portfolio-flters li', true);
-	  
+
       on('click', '#portfolio-flters li', function(e) {
         e.preventDefault();
         portfolioFilters.forEach(function(el) {
@@ -84,12 +87,46 @@ function refreshFilterContent(){
 (function() {
   "use strict";
 
+  const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  const applyRevealAnimations = () => {
+    if (prefersReducedMotion) return;
+
+    const revealGroups = [
+      { selector: '.section-title', animation: 'fade-up' },
+      { selector: '.about .content > div', animation: 'fade-up' },
+      { selector: '.counts .count-box', animation: 'zoom-in' },
+      { selector: '.why-us .accordion-list li', animation: 'fade-left' },
+      { selector: '.support .icon-box, .team-about .icon-box', animation: 'fade-up' },
+      { selector: '.specialize .icon-box, .certifications .icon-box', animation: 'zoom-in' },
+      { selector: '.portfolio .portfolio-item', animation: 'fade-up' },
+      { selector: '.contact .info, .contact .php-email-form, .career-contact .info, .career-contact .php-email-form, .feedback-form .content', animation: 'fade-up' },
+      { selector: '#footer .footer-top .row > div', animation: 'fade-up' }
+    ];
+
+    revealGroups.forEach(({ selector, animation }) => {
+      select(selector, true).forEach((element, index) => {
+        if (!element.hasAttribute('data-aos')) {
+          element.setAttribute('data-aos', animation);
+        }
+
+        if (!element.hasAttribute('data-aos-delay')) {
+          element.setAttribute('data-aos-delay', String(Math.min((index % 4) * 80, 240)));
+        }
+      });
+    });
+  };
+
+  applyRevealAnimations();
+
   window.addEventListener("load", () => {
     AOS.init({
-        duration: 1000,
+        duration: 750,
         easing: "ease-in-out",
         once: true,
         mirror: false,
+        offset: 80,
+        disable: () => prefersReducedMotion,
     });
 });
 
@@ -120,7 +157,7 @@ function refreshFilterContent(){
   // }
 
   /**
-   * Easy on scroll event listener 
+   * Easy on scroll event listener
    */
   const onscroll = (el, listener) => {
     el.addEventListener('scroll', listener)
@@ -206,6 +243,7 @@ function refreshFilterContent(){
     select('#navbar').classList.toggle('navbar-mobile')
     this.classList.toggle('bi-list')
     this.classList.toggle('bi-x')
+    document.body.classList.toggle('nav-open')
   })
 
   /**
@@ -222,12 +260,15 @@ function refreshFilterContent(){
    * Scrool with ofset on links with a class name .scrollto
    */
   on('click', '.scrollto', function(e) {
+    if (!this.hash) return
+
     if (select(this.hash)) {
       e.preventDefault()
 
       let navbar = select('#navbar')
       if (navbar.classList.contains('navbar-mobile')) {
         navbar.classList.remove('navbar-mobile')
+        document.body.classList.remove('nav-open')
         let navbarToggle = select('.mobile-nav-toggle')
         navbarToggle.classList.toggle('bi-list')
         navbarToggle.classList.toggle('bi-x')
@@ -278,7 +319,7 @@ function refreshFilterContent(){
       });
 
       let portfolioFilters = select('#portfolio-flters li', true);
-	  
+
       on('click', '#portfolio-flters li', function(e) {
         e.preventDefault();
         portfolioFilters.forEach(function(el) {
@@ -293,7 +334,7 @@ function refreshFilterContent(){
           AOS.refresh()
         });
       }, true);
-      
+
       showFilter(portfolioFilters, portfolioIsotope);
     }
   });
@@ -310,7 +351,7 @@ function refreshFilterContent(){
       });
 
       let portfolioFilters = select('#portfolio-flters li', true);
-	  
+
       on('click', '#portfolio-flters li', function(e) {
         e.preventDefault();
         portfolioFilters.forEach(function(el) {
@@ -328,16 +369,16 @@ function refreshFilterContent(){
       }, true);
 
       showFilter(portfolioFilters, portfolioIsotope);
-      
-    }
-   
-  });
-  
-    
 
-  
+    }
+
+  });
+
+
+
+
   /**
-   * Initiate portfolio lightbox 
+   * Initiate portfolio lightbox
    */
   const portfolioLightbox = GLightbox({
     selector: '.portfolio-lightbox'
@@ -450,65 +491,49 @@ function showFilter(portfolioFilters, portfolioIsotope) {
               element.classList.remove('filter-active')
           }
         }
-      ) 
+      )
    }
- 
+
 }
 
 
 let queryPopupHandled = false;
 
-$(document).ready(function () {
-  if (window.innerWidth > 768 && $("#popupMain").length) {
+document.addEventListener('DOMContentLoaded', function () {
+  const popupMain = document.querySelector('#popupMain');
+
+  if (window.innerWidth > 768 && popupMain) {
     setTimeout(function () {
       if (!queryPopupHandled) {
         queryPopupHandled = true;
-        $("#popupMain").css("display", "block");
+        popupMain.style.display = 'block';
       }
     }, 6000);
   }
-});
 
-$(".contactp-close").click(function () {
-  queryPopupHandled = true;
-  $("#popupMain").css("display", "none");
-});
+  document.querySelectorAll('.contactp-close').forEach(function (element) {
+    element.addEventListener('click', function () {
+      queryPopupHandled = true;
+      if (popupMain) {
+        popupMain.style.display = 'none';
+      }
+    });
+  });
 
+  document.querySelectorAll('#topbar .facebook, #topbar .linkedin, #footer .facebook, #footer .linkedin').forEach(function (element) {
+    element.addEventListener('click', function (event) {
+      event.preventDefault();
+    });
+  });
 
-
-$("#garware-box").click(function(){
-  console.log("garware box clicked")
- 
-});
-
-
-$('.product a').click(function(event) {
-  event.preventDefault();
-});
-
-
-$('#topbar .facebook').click(function(event) {
-  event.preventDefault();
-});
-
-$('#topbar .linkedin').click(function(event) {
-  event.preventDefault();
-});
-
-
-$('#footer .facebook').click(function(event) {
-  event.preventDefault();
-});
-
-$('#footer .linkedin').click(function(event) {
-  event.preventDefault();
-});
-$('.subNav').click(function(event){
-  let a= $(this).data('id');
-  
-  console.log(''+window.location.hostname+a);
-  window.location.replace('/shivvijayenterprises.com/'+a);
-  window.location.reload();
+  document.querySelectorAll('.subNav').forEach(function (element) {
+    element.addEventListener('click', function () {
+      const target = element.dataset.id;
+      if (target) {
+        window.location.href = target;
+      }
+    });
+  });
 });
 
 

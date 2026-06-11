@@ -241,7 +241,7 @@
 @media (min-width: 992px){
 .team-about .data  {
     flex: 0 0 auto;
-    width:70%; 
+    width:70%;
 }
 
 .team-about .image{
@@ -273,11 +273,11 @@ team - ceo letter
 
 
   @media (min-width:992px) {
-      
+
   .letter-ceo .col-lg-8 {
     flex: 0 0 auto;
     width: 80%;
- 
+
   }
 
   .letter-ceo .col-lg-4 {
@@ -286,7 +286,7 @@ team - ceo letter
   }
 
 }
- 
+
   .letter-ceo h2
   {
     color:#173b6c;
@@ -338,7 +338,7 @@ team - ceo letter
       border: 2px solid #ed502e;
       width: 150px;
     }
-    
+
     .letter-ceo .btn-learn-more:hover {
       background: #ed502e;
       color: #fff;

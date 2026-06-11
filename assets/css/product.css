@@ -31,8 +31,10 @@
   align-items: center;
   height: 100%;
   padding: 20px;
-  transition: 0.3s;
+  transition: transform 0.32s ease, box-shadow 0.32s ease, border-color 0.32s ease;
   border: 1px solid #eef0ef;
+  border-radius: 14px;
+  background: #fff;
 }
 
 .specialize .icon-box i {
@@ -56,6 +58,8 @@
 
 .specialize .icon-box:hover {
   border-color: #149ddd;
+  box-shadow: 0 18px 45px rgba(11, 35, 65, 0.1);
+  transform: translateY(-5px);
 }
 
 .specialize .icon-box:hover h3 a {
@@ -63,7 +67,7 @@
 }
 
 .specialize .blinking{
-	animation:blinkingText 5s infinite;  
+	animation:blinkingText 5s infinite;
 }
 
 @keyframes blinkingText{
@@ -71,7 +75,7 @@
 	49% {	color: transparent;	}
 	50% {	color: #37423b;		}
 	99% {	color:transparent;	}
-	100%{	color: red;		}	
+	100%{	color: red;		}
 }
 
 .specialize h3{
@@ -93,11 +97,13 @@
   flex-wrap: wrap;
   justify-content: center;
   gap: 8px;
+  overflow-x: auto;
+  scrollbar-width: thin;
 }
 
 .portfolio #portfolio-flters li.filter-active
 {
-  color: #ed502e; 
+  color: #ed502e;
 }
 
 .portfolio #portfolio-flters li {
@@ -112,10 +118,15 @@
   color: #0b2341;
   margin-bottom: 5px;
   transition: all 0.3s ease-in-out;
+  border-radius: 999px;
+  background: #f6f9fd;
 }
 
 .portfolio #portfolio-flters li:hover, .portfolio #portfolio-flters li.filter-active {
   color: #ed502e;
+  background: #fff3ef;
+  box-shadow: 0 10px 24px rgba(237, 80, 46, 0.13);
+  transform: translateY(-2px);
 }
 
 .portfolio #portfolio-flters li:last-child {
@@ -124,6 +135,17 @@
 
 .portfolio .portfolio-item {
   margin-bottom: 30px;
+  overflow: hidden;
+  border-radius: 16px;
+}
+
+.portfolio .portfolio-item img {
+  transition: transform 0.45s ease, filter 0.45s ease;
+}
+
+.portfolio .portfolio-item:hover img {
+  filter: saturate(1.08);
+  transform: scale(1.04);
 }
 
 .portfolio .portfolio-item .portfolio-info {
@@ -208,7 +230,7 @@
 .portfolio-details .portfolio-details-slider img {
   width: 100%;
   height: auto;
-  
+
 }
 
 .img-fluid
@@ -217,6 +239,7 @@
 	height:auto;
   aspect-ratio: 4 / 3;
   object-fit: cover;
+  border-radius: 14px;
 }
 
 .portfolio-details .portfolio-details-slider .swiper-pagination {
@@ -297,11 +320,16 @@
 
   .portfolio #portfolio-flters {
     justify-content: flex-start;
+    flex-wrap: nowrap;
+    margin-left: -6px;
+    margin-right: -6px;
+    padding: 2px 6px 8px;
   }
 
   .portfolio #portfolio-flters li {
     font-size: 13px;
     padding: 9px 10px;
+    flex: 0 0 auto;
   }
 
   .portfolio .portfolio-item .portfolio-info {

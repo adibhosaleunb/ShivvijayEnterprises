@@ -8,10 +8,28 @@
 /*--------------------------------------------------------------
 # General
 --------------------------------------------------------------*/
+:root {
+  --brand-blue: #002060;
+  --brand-navy: #0b2341;
+  --brand-orange: #ed502e;
+  --brand-cyan: #01b1d7;
+  --soft-surface: #f6f9fd;
+  --card-shadow: 0 18px 45px rgba(11, 35, 65, 0.1);
+  --motion-fast: 180ms ease;
+  --motion-med: 320ms ease;
+}
+
+html {
+  scroll-behavior: smooth;
+  -webkit-text-size-adjust: 100%;
+}
+
 body {
-  font-family: "Open Sans", sans-serif;
+  font-family: "Rubik", "Open Sans", sans-serif;
   color: #444444;
   overflow-x: hidden;
+  font-size: clamp(15px, 1.35vw, 17px);
+  line-height: 1.65;
 }
 
 *, *::before, *::after {
@@ -20,6 +38,32 @@ body {
 
 img, iframe, embed, object {
   max-width: 100%;
+}
+
+img {
+  height: auto;
+}
+
+p {
+  overflow-wrap: anywhere;
+}
+
+a,
+button,
+.btn-learn-more,
+.cta .cta-btn,
+.navbar .getstarted {
+  transition: color var(--motion-fast), background-color var(--motion-fast), border-color var(--motion-fast), transform var(--motion-fast), box-shadow var(--motion-fast);
+}
+
+a:focus-visible,
+button:focus-visible,
+input:focus-visible,
+textarea:focus-visible,
+select:focus-visible,
+.mobile-nav-toggle:focus-visible {
+  outline: 3px solid rgba(237, 80, 46, 0.35);
+  outline-offset: 3px;
 }
 
 a {
@@ -84,7 +128,7 @@ h1, h2, h3, h4, h5, h6 {
 
 #topbar a,
 #topbar span {
-  font-size: 14px;
+  font-size: clamp(12px, 1.3vw, 14px);
 }
 
 #topbar.topbar-scrolled {
@@ -140,6 +184,10 @@ h1, h2, h3, h4, h5, h6 {
   top: 44px;
 }
 
+#header .container {
+  min-width: 0;
+}
+
 #header.header-scrolled {
   box-shadow: 0px 0px 20px 0px rgba(0, 0, 0, 0.1);
   top: 0;
@@ -160,8 +208,9 @@ h1, h2, h3, h4, h5, h6 {
 
 #header .logo a {
   color: #002060;
-  font-size: clamp(18px, 2vw, 25px);
+  font-size: clamp(17px, 2vw, 25px);
   white-space: normal;
+  line-height: 1.15;
 }
 
 #header .logo img {
@@ -189,6 +238,7 @@ h1, h2, h3, h4, h5, h6 {
   position: relative;
   top: 0;
   min-width: 0;
+  max-width: min(52vw, 360px);
 }
 
 @media (max-width: 1200px) {
@@ -199,6 +249,15 @@ h1, h2, h3, h4, h5, h6 {
 
  @media (max-width: 600px)
 {
+  #topbar .container {
+    padding-left: 10px;
+    padding-right: 10px;
+  }
+
+  #topbar .contact-info {
+    min-width: 0;
+  }
+
   #topbar {
     font-size: 12px;
   }
@@ -226,6 +285,7 @@ h1, h2, h3, h4, h5, h6 {
 
   .logo-text {
     width: auto;
+    max-width: 60vw;
   }
 
   #header .logo-div
@@ -237,13 +297,13 @@ h1, h2, h3, h4, h5, h6 {
     width: 56px;
     height: auto;
   }
-} 
+}
 
 /*--------------------------------------------------------------
 # Navigation Menu
 --------------------------------------------------------------*/
 /**
-* Desktop Navigation 
+* Desktop Navigation
 */
 .navbar {
   padding: 0;
@@ -357,7 +417,7 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 /**
-* Mobile Navigation 
+* Mobile Navigation
 */
 .mobile-nav-toggle {
   color: #0b2341;
@@ -366,10 +426,17 @@ h1, h2, h3, h4, h5, h6 {
   display: none;
   line-height: 0;
   transition: 0.5s;
+  padding: 8px;
+  border-radius: 10px;
+}
+
+.mobile-nav-toggle:hover {
+  background: rgba(11, 35, 65, 0.06);
 }
 
 .mobile-nav-toggle.bi-x {
   color: #fff;
+  background: transparent;
 }
 
 @media (max-width: 991px) {
@@ -400,6 +467,12 @@ h1, h2, h3, h4, h5, h6 {
   background: rgba(31, 38, 39, 0.9);
   transition: 0.3s;
   z-index: 999;
+  -webkit-backdrop-filter: blur(6px);
+  backdrop-filter: blur(6px);
+}
+
+body.nav-open {
+  overflow: hidden;
 }
 
 .navbar-mobile .mobile-nav-toggle {
@@ -419,12 +492,17 @@ h1, h2, h3, h4, h5, h6 {
   background-color: #fff;
   overflow-y: auto;
   transition: 0.3s;
+  border-radius: 18px;
+  box-shadow: 0 22px 70px rgba(0, 0, 0, 0.25);
+  animation: mobileNavPanel 0.28s ease both;
 }
 
 .navbar-mobile a {
-  padding: 10px 20px;
+  padding: 12px 20px;
   font-size: 15px;
   color: #0b2341;
+  border-radius: 10px;
+  margin: 2px 10px;
 }
 
 .navbar-mobile a:hover, .navbar-mobile .active, .navbar-mobile li:hover > a {
@@ -445,6 +523,7 @@ h1, h2, h3, h4, h5, h6 {
   visibility: visible;
   background: #fff;
   box-shadow: 0px 0px 30px rgba(127, 137, 161, 0.25);
+  border-radius: 12px;
 }
 
 .navbar-mobile .dropdown ul li {
@@ -465,6 +544,29 @@ h1, h2, h3, h4, h5, h6 {
 
 .navbar-mobile .dropdown > .dropdown-active {
   display: block;
+  animation: submenuReveal 0.24s ease both;
+}
+
+@keyframes mobileNavPanel {
+  from {
+    opacity: 0;
+    transform: translateY(-12px) scale(0.98);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+@keyframes submenuReveal {
+  from {
+    opacity: 0;
+    transform: translateY(-6px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
 /*--------------------------------------------------------------
@@ -474,6 +576,7 @@ h1, h2, h3, h4, h5, h6 {
   width: 100%;
   min-height: 560px;
   height: 100vh;
+  height: min(100svh, 760px);
   background-color: rgba(4, 12, 21, 0.5);
   overflow: hidden;
   position: relative;
@@ -491,11 +594,12 @@ h1, h2, h3, h4, h5, h6 {
   background-size: cover;
   background-position: top center;
   background-repeat: no-repeat;
+  transform: scale(1.02);
 }
 
 #hero .carousel-item::before {
   content: '';
-  background-color: rgba(4, 12, 21, 0.5);
+  background: linear-gradient(90deg, rgba(4, 12, 21, 0.72), rgba(4, 12, 21, 0.45) 52%, rgba(4, 12, 21, 0.28));
 }
 
 #hero .carousel-container {
@@ -508,11 +612,17 @@ h1, h2, h3, h4, h5, h6 {
   right: clamp(16px, 5vw, 50px);
 }
 
+#hero .carousel-container .container {
+  max-width: 1140px;
+}
+
 #hero h2 {
   color: #fff;
   margin: 0;
-  font-size: clamp(30px, 5vw, 48px);
+  font-size: clamp(30px, 7vw, 54px);
   font-weight: 700;
+  line-height: 1.08;
+  text-wrap: balance;
 }
 
 #hero p {
@@ -520,13 +630,14 @@ h1, h2, h3, h4, h5, h6 {
   animation-delay: 0.4s;
   color: #fff;
   margin-top: 10px;
-  
+
 }
 
 #hero .container b{
   font-family: Calibri;
-  font-size: 20px;
-  
+  font-size: clamp(17px, 2.1vw, 21px);
+  line-height: 1.45;
+
 }
 
 
@@ -631,6 +742,10 @@ h1, h2, h3, h4, h5, h6 {
     text-align: center;
     top: 74px;
   }
+
+  #hero .carousel-item::before {
+    background: rgba(4, 12, 21, 0.58);
+  }
 }
 
 @media (max-width: 768px) {
@@ -653,7 +768,8 @@ h1, h2, h3, h4, h5, h6 {
 
   #hero {
     min-height: 480px;
-    height: auto;
+    height: 78vh;
+    height: 78svh;
   }
 
   #hero .carousel-container {
@@ -673,6 +789,28 @@ h1, h2, h3, h4, h5, h6 {
   }
 }
 
+@media (max-width: 480px) {
+  #hero {
+    min-height: 500px;
+    height: 82vh;
+    height: 82svh;
+  }
+
+  #hero .carousel-container {
+    left: 8px;
+    right: 8px;
+  }
+
+  #hero h2 {
+    font-size: clamp(28px, 10vw, 38px);
+  }
+
+  #hero .carousel-control-prev,
+  #hero .carousel-control-next {
+    width: 12%;
+  }
+}
+
 @media (min-width: 1024px) {
   #hero .carousel-control-prev, #hero .carousel-control-next {
     width: 5%;
@@ -689,7 +827,7 @@ h1, h2, h3, h4, h5, h6 {
 # Sections General
 --------------------------------------------------------------*/
 section {
-  padding: 60px 0;
+  padding: clamp(42px, 7vw, 70px) 0;
 }
 
 .section-bg {
@@ -697,7 +835,7 @@ section {
 }
 
 .section-title {
-  padding-bottom: 40px;
+  padding-bottom: clamp(28px, 4vw, 42px);
 }
 
 .section-title h2 {
@@ -724,11 +862,13 @@ section {
 .section-title p {
   margin: 0;
   margin: 0;
-  font-size: 36px;
+  font-size: clamp(25px, 4.2vw, 38px);
   font-weight: 700;
   text-transform: uppercase;
   font-family: "Poppins", sans-serif;
   color: #0f2f57;
+  line-height: 1.16;
+  text-wrap: balance;
 }
 
 
@@ -792,6 +932,8 @@ section {
   background: #ed502e;
   color: #fff;
   text-decoration: none;
+  box-shadow: 0 12px 30px rgba(237, 80, 46, 0.22);
+  transform: translateY(-2px);
 }
 
 
@@ -844,6 +986,13 @@ section {
   box-shadow: -10px -5px 40px 0 rgba(0, 0, 0, 0.1);
   padding: 30px;
   width: 100%;
+  border-radius: 14px;
+  transition: transform var(--motion-med), box-shadow var(--motion-med);
+}
+
+.counts .count-box:hover {
+  box-shadow: var(--card-shadow);
+  transform: translateY(-6px);
 }
 
 .counts .count-box i {
@@ -940,6 +1089,13 @@ section {
   padding: 10px;
   background: #fff;
   border-radius: 4px;
+  box-shadow: 0 10px 28px rgba(11, 35, 65, 0.06);
+  transition: transform var(--motion-fast), box-shadow var(--motion-fast);
+}
+
+.why-us .accordion-list li:hover {
+  box-shadow: 0 16px 35px rgba(11, 35, 65, 0.11);
+  transform: translateX(4px);
 }
 
 .why-us .accordion-list a {
@@ -1142,6 +1298,20 @@ section {
   color: #343a40;
 }
 
+.support .icon-box,
+.team-about .icon-box {
+  border-radius: 14px;
+  padding: 18px;
+  transition: transform var(--motion-med), box-shadow var(--motion-med), background-color var(--motion-med);
+}
+
+.support .icon-box:hover,
+.team-about .icon-box:hover {
+  background: #fff;
+  box-shadow: var(--card-shadow);
+  transform: translateY(-5px);
+}
+
 .support h3
 {
   color:#173b6c;
@@ -1166,6 +1336,8 @@ section {
   background-repeat: no-repeat;
   background-size: cover;
   min-height: 400px;
+  border-radius: 18px;
+  box-shadow: 0 18px 42px rgba(11, 35, 65, 0.12);
 }
 
 @media (max-width: 768px) {
@@ -1200,12 +1372,12 @@ section {
     flex: 0 0 auto;
     width: 70%;
 }
-  
+
   .support .image{
     flex: 0 0 auto;
     width: 30%;
 }
-  
+
 }
 
 
@@ -1218,6 +1390,12 @@ section {
   padding: 30px;
   border-radius: 6px;
   background: #fff;
+  transition: transform var(--motion-med), box-shadow var(--motion-med);
+}
+
+.services .icon-box:hover {
+  box-shadow: var(--card-shadow);
+  transform: translateY(-5px);
 }
 
 .services .icon-box i {
@@ -1263,6 +1441,12 @@ section {
   box-shadow: 0px 2px 15px rgba(0, 0, 0, 0.1);
   padding: 30px;
   border-radius: 10px;
+  transition: transform var(--motion-med), box-shadow var(--motion-med);
+}
+
+.team .member:hover {
+  box-shadow: var(--card-shadow);
+  transform: translateY(-5px);
 }
 
 .team .member .pic {
@@ -1369,6 +1553,13 @@ section {
   box-shadow: 0px 0px 20px 0px rgba(11, 35, 65, 0.1);
   position: relative;
   background: #fff;
+  border-radius: 18px;
+  transition: transform var(--motion-med), box-shadow var(--motion-med);
+}
+
+.testimonials .testimonial-item:hover {
+  box-shadow: var(--card-shadow);
+  transform: translateY(-5px);
 }
 
 .testimonials .testimonial-item .testimonial-img {
@@ -1427,7 +1618,7 @@ section {
   background-color: #fff;
   opacity: 1;
   background-color: #ddd;
-  
+
 }
 
 .testimonials .swiper-pagination .swiper-pagination-bullet-active {
@@ -1469,6 +1660,8 @@ section {
 .cta .cta-btn:hover {
   background: #ed502e;
   border: 2px solid #0b2341;
+  box-shadow: 0 14px 32px rgba(237, 80, 46, 0.22);
+  transform: translateY(-2px);
 }
 
 
@@ -1563,6 +1756,7 @@ section {
 .contact .info {
   width: 100%;
   background: #fff;
+  border-radius: 16px;
 }
 
 .contact .info i {
@@ -1606,6 +1800,7 @@ section {
 .contact .php-email-form {
   width: 100%;
   background: #fff;
+  border-radius: 16px;
 }
 
 .contact .php-email-form .form-group {
@@ -1968,7 +2163,7 @@ section {
 .contactp .php-email-form button[type="submit"]:hover {
   background: #ed502e;
 }
- .contactp i{ 
+ .contactp i{
   display: block;
   font-size: 30px;
   color: #ed502e;
@@ -2013,7 +2208,8 @@ section {
 
   #hero {
     min-height: 480px;
-    height: auto;
+    height: 78vh;
+    height: 78svh;
   }
 
   #hero .carousel-container {
@@ -2073,5 +2269,69 @@ section {
   .contactp .php-email-form {
     width: 100%;
     height: auto;
+  }
+}
+
+@media (max-width: 576px) {
+  .container,
+  .container-fluid {
+    padding-left: 18px;
+    padding-right: 18px;
+  }
+
+  .section-title h2 {
+    line-height: 1.3;
+  }
+
+  .section-title h2::after {
+    display: block;
+    margin: 10px 0 0;
+  }
+
+  .about .content .btn-learn-more,
+  #footer .btn-learn-more,
+  .cta .cta-btn,
+  .contact .php-email-form button[type="submit"] {
+    width: 100%;
+    text-align: center;
+  }
+
+  .counts .count-box,
+  .services .icon-box,
+  .support .icon-box,
+  .team-about .icon-box,
+  .contact .info,
+  .contact .php-email-form {
+    padding: 22px;
+  }
+
+  .contact .info i,
+  .career-contact .info i {
+    float: none;
+    margin-bottom: 12px;
+  }
+
+  .contact .info h4,
+  .contact .info p,
+  .career-contact .info h4,
+  .career-contact .info p,
+  .career-contact .info .social-links {
+    padding-left: 0;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    scroll-behavior: auto !important;
+    transition-duration: 0.001ms !important;
+  }
+
+  [data-aos] {
+    opacity: 1 !important;
+    transform: none !important;
   }
 }
