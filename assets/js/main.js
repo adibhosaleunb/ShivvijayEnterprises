@@ -83,6 +83,15 @@ function refreshFilterContent(){
     }
 }
 
+function updateProductFilterHash(filterElement) {
+  if (!filterElement.id) return;
+
+  const hash = `#${filterElement.id}`;
+  if (window.location.hash !== hash) {
+    window.history.replaceState(null, '', hash);
+  }
+}
+
 
 (function() {
   "use strict";
@@ -288,6 +297,12 @@ function refreshFilterContent(){
     }
   });
 
+  window.addEventListener('hashchange', () => {
+    if (window.location.hash.startsWith('#filter-') && select('#portfolio')) {
+      scrollto('#portfolio')
+    }
+  });
+
   /**
    * Hero carousel indicators
    */
@@ -330,12 +345,16 @@ function refreshFilterContent(){
         portfolioIsotope.arrange({
           filter: this.getAttribute('data-filter')
         });
+        updateProductFilterHash(this);
         portfolioIsotope.on('arrangeComplete', function() {
           AOS.refresh()
         });
       }, true);
 
       showFilter(portfolioFilters, portfolioIsotope);
+      window.addEventListener('hashchange', function() {
+        showFilter(portfolioFilters, portfolioIsotope);
+      });
     }
   });
 
@@ -363,12 +382,16 @@ function refreshFilterContent(){
         portfolioIsotope.arrange({
           filter: this.getAttribute('data-filter')
         });
+        updateProductFilterHash(this);
         portfolioIsotope.on('arrangeComplete', function() {
           AOS.refresh()
         });
       }, true);
 
       showFilter(portfolioFilters, portfolioIsotope);
+      window.addEventListener('hashchange', function() {
+        showFilter(portfolioFilters, portfolioIsotope);
+      });
 
     }
 
@@ -474,9 +497,8 @@ function refreshFilterContent(){
 
 
 function showFilter(portfolioFilters, portfolioIsotope) {
-  console.log('----! showFilter Clicked');
-   let filter = window.location.href.split('#')[1]
-   if (filter?.startsWith('filter')){
+   const filter = window.location.hash.slice(1);
+   if (filter.startsWith('filter-')){
       portfolioFilters.forEach(
         element => {
           if(element.id === filter){
@@ -498,6 +520,27 @@ function showFilter(portfolioFilters, portfolioIsotope) {
 
 
 let queryPopupHandled = false;
+const queryPopupDismissedUntilKey = 'queryPopupDismissedUntil';
+const queryPopupDismissDuration = 4 * 60 * 1000;
+
+function isQueryPopupDismissed() {
+  try {
+    return Number(localStorage.getItem(queryPopupDismissedUntilKey)) > Date.now();
+  } catch (error) {
+    return false;
+  }
+}
+
+function dismissQueryPopup() {
+  try {
+    localStorage.setItem(
+      queryPopupDismissedUntilKey,
+      String(Date.now() + queryPopupDismissDuration)
+    );
+  } catch (error) {
+    // The popup still closes when browser storage is unavailable.
+  }
+}
 
 document.addEventListener('DOMContentLoaded', function () {
   const popupMain = document.querySelector('#popupMain');
@@ -530,9 +573,9 @@ document.addEventListener('DOMContentLoaded', function () {
     });
   }
 
-  if (window.innerWidth > 768 && popupMain) {
+  if (window.innerWidth > 768 && popupMain && !isQueryPopupDismissed()) {
     setTimeout(function () {
-      if (!queryPopupHandled) {
+      if (!queryPopupHandled && !isQueryPopupDismissed()) {
         queryPopupHandled = true;
         popupMain.style.display = 'block';
       }
@@ -542,6 +585,7 @@ document.addEventListener('DOMContentLoaded', function () {
   document.querySelectorAll('.contactp-close').forEach(function (element) {
     element.addEventListener('click', function () {
       queryPopupHandled = true;
+      dismissQueryPopup();
       if (popupMain) {
         popupMain.style.display = 'none';
       }
@@ -563,4 +607,3 @@ document.addEventListener('DOMContentLoaded', function () {
     });
   });
 });
-
